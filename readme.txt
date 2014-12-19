@@ -15,7 +15,7 @@ This plugin provides a textarea at the variations to add detailed descriptions.
 
 = Languages =
 
-This plugin is polyglott. If you want to submit a language, drop a not at "hallo@wpcoding.de" with the subject "Multipost Newsletter - Add language $language".
+This plugin is polyglott. If you want to submit a language, drop a not at "translations@marketpress.com" with the subject "Multipost Newsletter - Add language $language".
 
 Currently available languages:
 
