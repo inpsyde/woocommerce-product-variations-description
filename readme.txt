@@ -28,10 +28,7 @@ Currently available languages:
 
 = Support =
 
-At any questions: Please keep in mind that this tool is free. Therefore we can't offer free support. Of course we'll see through the [support forums](http://wordpress.org/support/plugin/woocommerce-product-variation-descriptions/) but we only answer feature requests and critical bugs. Nevertheless you have following options to get support:
-
-* [Forums](http://wordpress.org/support/plugin/woocommerce-product-variation-descriptions/) - here you are able to report bugs, add feature requests or your questions
-* [Github](https://github.com/inpsyde/woocommerce-product-variations-description/) - Here you can fork the code
+At any questions: Please keep in mind that this tool is free. Therefore we can't offer free support. Of course we'll see through the [issue tracker](https://github.com/inpsyde/woocommerce-product-variations-description/) but we only answer feature requests and critical bugs.
 
 == Installation ==
 
