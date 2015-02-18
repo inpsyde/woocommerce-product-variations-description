@@ -38,7 +38,7 @@ function wcpvd_init() {
 
 	// adds the fied to the variations
 	require_once( $application_directory . '/application/backend/add-field.php' );
-	add_action( 'woocommerce_product_after_variable_attributes', 'wcpvd_add_field', 10, 2 );
+	add_action( 'woocommerce_product_after_variable_attributes', 'wcpvd_add_field', 10, 3 );
 
 	// saves the field inputs
 	require_once( $application_directory . '/application/backend/save-field.php' );

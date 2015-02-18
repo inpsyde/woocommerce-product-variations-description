@@ -11,11 +11,12 @@
 /**
  * Adds the field to the variations
  * 
- * @param	int $loop
- * @param	array $variation_data
+ * @param	int $loop the current loop count
+ * @param	array $variation_data the data of the current variation
+ * @param	object $variation the variation post object
  * @return	void
  */
-function wcpvd_add_field( $loop, $variation_data ) {
+function wcpvd_add_field( $loop, $variation_data, $variation ) {
 
 	?>
 	<tr>
@@ -27,7 +28,7 @@ function wcpvd_add_field( $loop, $variation_data ) {
 				'label'       => __( 'Description', 'wcpvd' ),
 				'placeholder' => '',
 				'description' => __( 'Enter the description of this variation here.', 'wcpvd' ),
-				'value'       => isset( $variation_data[ 'variable_description' ][ 0 ] ) ? $variation_data[ 'variable_description' ][ 0 ] : '',
+				'value'       => get_post_meta( $variation->ID, 'variable_description', TRUE ) != '' ? get_post_meta( $variation->ID, 'variable_description', TRUE ) : '',
 			) );
 			?>
 		</td>
