@@ -40,23 +40,80 @@ At any questions: Please keep in mind that this tool is free. Therefore we can't
 
 `<?php
 function my_theme_function_woocommerce_after_add_to_cart_form() {
-	// get the product
-	global $product;
+    // get the product
+    global $product;
 
-	// Get the post IDs of all the product variations
+    // Get the post IDs of all the product variations
     $variation_ids = $product->children;
 
-	// walk the variations
-    foreach( $variation_ids as $variation_id ) {
-    	$description = wcpvd_get_variation_description( $variation_id );
-    	echo '<div id="variation-' . $variation_id . '" style="display: none;">';
-    		echo $description;
-    	echo '</div>';
+    // check if we have variations
+    if ( empty( $variation_ids ) ) {
+        return;
     }
-} add_action( 'function_woocommerce_after_add_to_cart_form', 'my_theme_function_woocommerce_after_add_to_cart_form' );
+
+    // walk the variations
+    ob_start(); ?>
+    <div class="variation-descriptions">
+        <?php foreach ( $variation_ids as $variation_id ):
+        $description = wcpvd_get_variation_description( $variation_id );
+        ?>
+        <div id="variation-<?php echo $variation_id; ?>" class="variation-description" style="display: none;">
+            <?php echo $description ?>
+        </div>
+        <?php endforeach ?>
+    </div>
+
+    <?php echo ob_get_clean();
+} add_action( 'woocommerce_after_add_to_cart_form', 'my_theme_function_woocommerce_after_add_to_cart_form' );
 ?>`
 
-4. Create a JavaScript or jQuery-Script to get the current selected variation (see `/woocommerce/single-product/add-to-cart/variable.php` for details) and display the variation description.
+4. Create a JavaScript or jQuery-Script to get the current selected variation (see `/woocommerce/single-product/add-to-cart/variable.php` for details) and display the variation description. Example:
+
+`
+/**
+ * Watch the select boxes and show hide variations depending on which one is selected
+ * @type {Object}
+ */
+var variationDescriptions = (function(){
+
+	// Init variables
+	var $variations = $('.variations'),
+		$variationIdElem = $('.variation_id'),
+		$variationDescriptions = $('.variation-descriptions'),
+		$selectedDescription = {},
+		showHideVariations,
+		afterChange,
+		watchChange;
+
+
+	showHideVariations = function() {
+		var activeVariation = $variationIdElem.val();
+		if ( activeVariation ) {
+			$variationDescriptions.children().hide();
+			$selectedDescription = $variationDescriptions.children('#variation-' + activeVariation);
+
+			if ( $selectedDescription.text().trim().length > 0 ) {
+				$selectedDescription.show();
+			}
+		}
+	};
+
+	afterChange = function() {
+		window.setTimeout(showHideVariations, 100);
+	};
+
+	return {
+		watchChange : function() {
+			if ( $variations.length ) {
+				$variations.on('change', 'select', afterChange );
+			}
+		}
+	}
+
+})();
+
+variationDescriptions.watchChange();
+`
 
 == Installation ==
 
